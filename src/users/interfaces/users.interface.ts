@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-export interface User {
-  name: string;
-  age: number;
-  job: string;
+export interface Users {
+  type: number;
+  role_id: number;
+  email: string;
+  password: string;
 }

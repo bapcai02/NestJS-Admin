@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { type } from 'os';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { type } from 'os';
       logging: true,
     }),
     // eslint-disable-next-line prettier/prettier
-    UsersModule
+    UsersModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
