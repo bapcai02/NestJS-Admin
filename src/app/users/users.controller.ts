@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Req, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Users } from './user.entity';
+import { Users } from '../../entity/user.entity';
 
 @Controller('users')
 export class UsersController {
