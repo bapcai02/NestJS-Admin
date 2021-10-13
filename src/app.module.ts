@@ -12,7 +12,6 @@ import { RolesModule } from './roles/roles.module';
 import { RatingsModule } from './ratings/ratings.module';
 import { ProductTagsModule } from './product-tags/product-tags.module';
 import { ProductImagesModule } from './product-images/product-images.module';
-import { ProductModule } from './product/product.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrderDetailsModule } from './order-details/order-details.module';
 import { EmployerModule } from './employer/employer.module';
@@ -24,6 +23,8 @@ import { BrandsModule } from './brands/brands.module';
 import { QuanhuyenModule } from './quanhuyen/quanhuyen.module';
 import { TinhtpModule } from './tinhtp/tinhtp.module';
 import { XaphuongttrModule } from './xaphuongttr/xaphuongttr.module';
+import { ProductsService } from './products/products.service';
+import { ProductsController } from './products/products.controller';
 
 @Module({
   imports: [
@@ -48,7 +49,6 @@ import { XaphuongttrModule } from './xaphuongttr/xaphuongttr.module';
     RatingsModule,
     ProductTagsModule,
     ProductImagesModule,
-    ProductModule,
     OrdersModule,
     OrderDetailsModule,
     EmployerModule,
@@ -61,7 +61,7 @@ import { XaphuongttrModule } from './xaphuongttr/xaphuongttr.module';
     TinhtpModule,
     XaphuongttrModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProductsController],
+  providers: [AppService, ProductsService],
 })
 export class AppModule {}
