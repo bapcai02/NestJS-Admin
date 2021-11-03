@@ -8,9 +8,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @Render('index')
-    getAll() {
-      return { message: 'Hello world!' };
+  @Render('pages/home/index.hbs')
+    async getAll() {
+      return;
       // return this.usersService.getUser();
     }
   @Get(':id')
