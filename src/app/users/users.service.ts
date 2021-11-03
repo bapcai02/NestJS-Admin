@@ -11,11 +11,11 @@ export class UsersService {
         private readonly userRepository: Repository<Users>,
     ){ }
    
-    async getAll(): Promise<Users[]>{
+    async getUser(): Promise<Users[]>{
         return await this.userRepository.find();
     }
 
-    async findOne(id: number): Promise<Users> {
+    async findUser(id: number): Promise<Users> {
         return await this.userRepository.findOne(id);
     }
 }
