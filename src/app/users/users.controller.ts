@@ -1,20 +1,33 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Req, Param, Render } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Req, Res, Param, Render, Post , Body} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Users } from '../../entity/user.entity';
-import { Request } from 'express';
+import { CreateUserDto } from '../../dto/users.create.dto';
 @Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @Render('pages/home/index.hbs')
     async getAll() {
-      return;
-      // return this.usersService.getUser();
+      return this.usersService.getUser();
     }
+
   @Get(':id')
     getOne(@Param('id') id: number) {
       return this.usersService.findUser(id);
+    }
+
+  @Post()
+    createUser( @Body() createUserDto: CreateUserDto) {
+      return createUserDto;
+    }
+
+  @Put(':id')
+    updateUser(@Param('id') id: string, @Body() body: any) {
+      return body;
+    }
+
+  @Delete(':id')
+    remove(@Param('id') id: string) {
+      return `This action removes a #${id} cat`;
     }
 }

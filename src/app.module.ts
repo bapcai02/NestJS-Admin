@@ -25,7 +25,7 @@ import { TinhtpModule } from './app/tinhtp/tinhtp.module';
 import { XaphuongttrModule } from './app/xaphuongttr/xaphuongttr.module';
 import { ProductsService } from './app/products/products.service';
 import { ProductsController } from './app/products/products.controller';
-
+import { Users } from './entity/user.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -35,7 +35,7 @@ import { ProductsController } from './app/products/products.controller';
       username: 'mysql',
       password: 'mysql',
       database: 'shopb2c',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [Users],
       synchronize: false,
       logging: true,
     }),

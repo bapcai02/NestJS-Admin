@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-export class CreateUserDto {
+export class UpdateUserDto {
   id: number;
   type: number;
   role_id: number;
