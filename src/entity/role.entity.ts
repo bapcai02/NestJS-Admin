@@ -12,25 +12,14 @@ export class Users {
     id: number;
 
     @Column({
-        type: 'varchar',
+        type: 'int',
     }) 
-    name: string;
+    status: number;
     
-    @Column({
-        type: 'int'
-    }) 
-    role_id: number;
-
-    @Column({
-        type: 'varchar',
-        unique: true
-    }) 
-    email: string;
-
     @Column({
         type: 'varchar'
     }) 
-    password: string;
+    display_name: string;
 
     @CreateDateColumn({
         type: "timestamp", 
