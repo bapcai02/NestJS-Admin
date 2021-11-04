@@ -1,4 +1,5 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { IBaseResponse } from 'src/helper/response.helper';
 import { CreateRolesDto } from './dto/roles.create.dto';
 import { RolesService } from './roles.service';
 
@@ -9,8 +10,9 @@ export class RolesController {
     @Get() 
         async getAll() {
             try {
-                return this.rolesService.index();
-            }catch (error) {
+                const response = IBaseResponse(0, "success!", await this.rolesService.index());
+                return response;
+            } catch (error) {
                 throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
@@ -18,9 +20,16 @@ export class RolesController {
     @Post() 
         async create(@Body() request: CreateRolesDto) {
             try {
-               if(request.display_name) {
-                   return 
-               } 
+                const role = await this.rolesService.findByName(request.display_name);
+                console.log(request);
+                let response = null;
+                if(role) {
+                    response = IBaseResponse(0, "Role name already exists!", []);
+                }else {
+                    response = IBaseResponse(0, "successfully create!", this.rolesService.store(request));
+                }
+               
+                return response;
             } catch (error) {
                 throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
             }
