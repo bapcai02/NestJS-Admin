@@ -3,9 +3,8 @@ import { Users } from '../../entity/user.entity';
 
 @EntityRepository(Users)
 export class UserRepository extends Repository<Users> {
-  getInactiveUsers(): Promise<Users[]> {
-    return this.createQueryBuilder()
-      .where('isActive = :active', { active: false })
-      .getMany()
-  }
+  // getInactiveUsers(): Promise<Users[]> {
+  //   return this.createQueryBuilder()
+  //     .getMany()
+  // }
 }

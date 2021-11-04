@@ -25,6 +25,7 @@ import { XaphuongttrModule } from './app/xaphuongttr/xaphuongttr.module';
 import { ProductsService } from './app/products/products.service';
 import { ProductsController } from './app/products/products.controller';
 import { Users } from './entity/user.entity';
+import { Roles } from './entity/role.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -34,7 +35,7 @@ import { Users } from './entity/user.entity';
       username: 'mysql',
       password: 'mysql',
       database: 'shopb2c',
-      entities: [Users],
+      entities: [Users, Roles],
       synchronize: false,
       logging: true,
     }),

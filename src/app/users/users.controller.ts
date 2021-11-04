@@ -11,7 +11,8 @@ export class UsersController {
   @Get()
       async getAll() {
         try {
-          return this.usersService.index();
+          const response = IBaseResponse(0, "thành công!", await this.usersService.index());
+          return response;
         }catch (error) {
           throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -20,7 +21,8 @@ export class UsersController {
   @Get(':id')
     async getOne(@Param('id') id: number) {
       try {
-        return await this.usersService.findById(id);
+        const response = IBaseResponse(0, "thành công!", await this.usersService.findById(id));
+        return response;
       }catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
       }
@@ -31,12 +33,13 @@ export class UsersController {
       try {
         const user = await this.usersService.findByEmail(createUserDto.email);
         if (user) {
-            return "email đã được tạo";
+          const response =  IBaseResponse(1, "Email đã tồn tại", [])
+          return response;
         }
         createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
         // const isPasswordMatching = await bcrypt.compare(passwordInPlaintext, hashedPassword);
-
-        return this.usersService.store(createUserDto);
+        const response = IBaseResponse(0, "Thêm mới thành công!", this.usersService.store(createUserDto));
+        return response;
       } catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
       }
