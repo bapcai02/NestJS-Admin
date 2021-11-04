@@ -48,14 +48,19 @@ export class UsersController {
   @Put(':id')
     async updateUser(@Param('id') id: number, @Body() request: UpdateUserDto) {
       try {
+        const user = await this.usersService.findById(id);
+        if(!user) {
+          const response =  IBaseResponse(0, "Role does not exist!", [])
+              return response;
+        }
         if(request.email){
           const user = await this.usersService.findByEmail(request.email);
           if (user) {
-              const response =  IBaseResponse(1, "Email already exists!", [])
+              const response =  IBaseResponse(0, "Email already exists!", [])
               return response;
           }
         }
-        const response = IBaseResponse(0, "Update Successful!", this.usersService.update(id, request));
+        const response = IBaseResponse(1, "Update Successful!", this.usersService.update(id, request));
         return response;
       } catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
