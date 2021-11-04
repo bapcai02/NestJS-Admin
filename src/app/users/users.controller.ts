@@ -11,16 +11,16 @@ export class UsersController {
   @Get()
       async getAll() {
         try {
-          return this.usersService.getUser();
+          return this.usersService.index();
         }catch (error) {
           throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
       }
   
   @Get(':id')
-    getOne(@Param('id') id: number) {
+    async getOne(@Param('id') id: number) {
       try {
-        return this.usersService.findUser(id);
+        return await this.usersService.findById(id);
       }catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
       }

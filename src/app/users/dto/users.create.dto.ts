@@ -1,15 +1,14 @@
 import { 
   Validate,
-  IsEmail, 
-  IsNotEmpty, 
-  IsInt, 
-  Min, 
+  IsEmail,
+  IsNotEmpty,
+  IsInt,
+  Min,
   Max, 
-  IsString, 
+  IsString,
   MinLength,
   MaxLength
 } from "class-validator";
-import { UniqueEmailValidator } from "src/validators/unique-email.validator";
 
 export class CreateUserDto {
     @IsNotEmpty()
@@ -26,7 +25,6 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @IsEmail()
-    // @Validate(UniqueEmailValidator)
     email: string;
 
     @IsNotEmpty()
