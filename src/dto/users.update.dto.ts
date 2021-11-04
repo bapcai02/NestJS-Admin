@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export class UpdateUserDto {
   id: number;
   type: number;

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryColumn, BaseEntity, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()

@@ -1,12 +1,10 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Users } from '../../entity/user.entity';
-
+import { UserRepository } from './user.repository';
 @Module({
-    imports: [TypeOrmModule.forFeature([Users])],
+    imports: [TypeOrmModule.forFeature([UserRepository])],
     controllers: [UsersController],
     providers: [UsersService],
 })

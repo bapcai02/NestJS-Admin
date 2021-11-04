@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './app/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { type } from 'os';
 import { TagsModule } from './app/tags/tags.module';
 import { SocialsModule } from './app/socials/socials.module';
 import { SlidersModule } from './app/sliders/sliders.module';
@@ -39,7 +38,6 @@ import { Users } from './entity/user.entity';
       synchronize: false,
       logging: true,
     }),
-    // eslint-disable-next-line prettier/prettier
     UsersModule,
     TagsModule,
     SocialsModule,
