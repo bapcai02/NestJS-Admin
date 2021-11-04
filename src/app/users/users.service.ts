@@ -3,27 +3,19 @@ import { Users } from '../../entity/user.entity';
 import { BaseService } from '../base.service';
 import { UserRepository } from './user.repository';
 import { LogService } from '../../log/custom.log';
+import { DeleteResult } from 'typeorm';
 @Injectable()
 export class UsersService extends BaseService<Users, UserRepository> {
-    constructor(repository: UserRepository, logger: LogService) {
-        super(repository, logger)
+    constructor( protected readonly repository: UserRepository) {
+        super()
     }
-   
     async getUser(): Promise<Users[]>{
         return await this.repository.find();
     }
-
-    async findUser(id: number): Promise<Users> {
-        return await this.repository.findOne(id);
+    async findUser(ids: number): Promise<Users> {
+        return await this.repository.findOne({id: ids});
     }
-    async createUser(data: any): Promise<Users> {
-        return await this.repository.save(data);
-    }
-    async updateUser(id: number, data: any): Promise<Users> {
-        await this.repository.save(id, data);
-        return this.findUser(id);
-    }
-    async deleteUser(id: number): Promise<Users> {
-        return this.repository.delete(id);
+    async findByEmail(emails: string): Promise<Users>{
+        return await this.repository.findOne({ email: emails });
     }
 }

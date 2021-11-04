@@ -5,12 +5,12 @@ import { LogService } from '../log/custom.log';
 
 export class BaseService<Model, Repo extends Repository<Model>> implements IBaseService<Model> {
   protected readonly repository: Repo
-  protected readonly logger: LogService
+  // protected readonly logger: LogService
 
-  constructor(repository: Repo, logger: LogService) {
-    this.repository = repository
-    this.logger = logger
-  }
+  // constructor(repository: Repo, logger: LogService) {
+  //   this.repository = repository
+  //   this.logger = logger
+  // }
 
   index(): Promise<Model[]> {
     return this.repository.find()

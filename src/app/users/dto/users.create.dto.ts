@@ -1,4 +1,5 @@
 import { 
+  Validate,
   IsEmail, 
   IsNotEmpty, 
   IsInt, 
@@ -8,6 +9,8 @@ import {
   MinLength,
   MaxLength
 } from "class-validator";
+import { UniqueEmailValidator } from "src/validators/unique-email.validator";
+
 export class CreateUserDto {
     @IsNotEmpty()
     @IsString()
@@ -21,7 +24,9 @@ export class CreateUserDto {
     @Max(4)
     role_id: number;
 
+    @IsNotEmpty()
     @IsEmail()
+    // @Validate(UniqueEmailValidator)
     email: string;
 
     @IsNotEmpty()
