@@ -4,7 +4,7 @@ import {
     PrimaryGeneratedColumn, 
     CreateDateColumn, 
     UpdateDateColumn,
-    OneToOne,
+    OneToMany,
 } from "typeorm";
 import { Roles } from "./role.entity";
 
@@ -46,9 +46,4 @@ export class Users {
         onUpdate: "CURRENT_TIMESTAMP(6)" 
     })
     updated_at?: Date;
-
-    //relationships
-    @OneToOne( () => Roles, (role) => role.id)
-    public role: Roles;
-    
 }

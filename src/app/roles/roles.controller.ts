@@ -14,7 +14,7 @@ import { UpdateRolesDto } from './dto/role.update.dto';
 import { CreateRolesDto } from './dto/roles.create.dto';
 import { RolesService } from './roles.service';
 
-@Controller('roles')
+@Controller('api/roles')
 export class RolesController {
     constructor(
         protected readonly rolesService: RolesService,

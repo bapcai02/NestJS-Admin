@@ -7,7 +7,8 @@ import {
   Post,
   Body,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  Req
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/users.create.dto';
@@ -15,7 +16,7 @@ import { UpdateUserDto } from './dto/users.update.dto';
 import { BaseResponse } from '../../helper/response.helper';
 import * as bcrypt from 'bcrypt';
 import { RolesService } from '../roles/roles.service';
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
   constructor(
     protected readonly usersService: UsersService,
@@ -43,10 +44,10 @@ export class UsersController {
       }
     }
 
-  @Get('/roles') 
-    async getRoleAll() {
+  @Post('/roles')
+    async getRoleAll(@Req() req: Request) {
         try {
-            const response = this.baseResponse.IBaseResponse(1, "success!", await this.usersService.getRoleAll());
+            const response = this.baseResponse.IBaseResponse(1, "success!", await this.usersService.findRoleAll());
             return response;
         } catch (error) {
             throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -107,3 +108,11 @@ export class UsersController {
       }
     }
 }
+function PATH_METADATA(PATH_METADATA: any, StaticController: any) {
+  throw new Error('Function not implemented.');
+}
+
+function StaticController(PATH_METADATA: (PATH_METADATA: any, StaticController: any) => void, StaticController: any) {
+  throw new Error('Function not implemented.');
+}
+

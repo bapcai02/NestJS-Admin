@@ -31,12 +31,8 @@ export class Roles {
 
     @UpdateDateColumn({
         type: "timestamp", 
-        default: () => "CURRENT_TIMESTAMP(6)", 
+        default: () => "CURRENT_TIMESTAMP(6)",
         onUpdate: "CURRENT_TIMESTAMP(6)" 
     })
     updated_at?: Date;
-  
-    //relationships
-    @ManyToOne( () => Users, (user) => user.role_id)
-    public user: Users;
 }

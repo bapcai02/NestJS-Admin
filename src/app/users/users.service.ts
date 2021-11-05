@@ -12,7 +12,7 @@ export class UsersService extends BaseService<Users, UserRepository> {
         return await this.repository.findOne({ email: emails });
     }
 
-    async getRoleAll() {
+    async findRoleAll() {
         return await this.repository.getRoleAll();
     }
 
