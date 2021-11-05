@@ -38,6 +38,7 @@ import { Roles } from './entity/role.entity';
       entities: [Users, Roles],
       synchronize: false,
       logging: true,
+      keepConnectionAlive: true,
     }),
     UsersModule,
     TagsModule,

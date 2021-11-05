@@ -3,9 +3,16 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
-import { LogService } from 'src/log/custom.log';
+import { LogService } from '../../log/custom.log';
+import { RolesModule } from '../roles/roles.module';
+import { HelperModule } from '../../helper/helper.module';
 @Module({
-    imports: [TypeOrmModule.forFeature([UserRepository]), LogService],
+    imports: [
+        TypeOrmModule.forFeature([UserRepository]),
+        LogService,
+        HelperModule,
+        RolesModule,
+    ],
     controllers: [UsersController],
     providers: [UsersService],
     exports: [UsersService],

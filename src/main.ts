@@ -14,7 +14,8 @@ async function bootstrap() {
   app.setViewEngine('hbs');
 
   await app.listen(3000);
-
+  console.log(`Application is running on: ${await app.getUrl()}`);
+  
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());

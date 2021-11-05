@@ -3,8 +3,10 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     CreateDateColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
+    ManyToOne
 } from "typeorm";
+import { Users } from "./user.entity";
 
 @Entity()
 export class Roles {
@@ -34,4 +36,7 @@ export class Roles {
     })
     updated_at?: Date;
   
+    //relationships
+    @ManyToOne( () => Users, (user) => user.role_id)
+    public user: Users;
 }

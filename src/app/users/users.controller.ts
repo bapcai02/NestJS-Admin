@@ -1,17 +1,32 @@
-import { Controller, Get, Put, Delete, Param, Post , Body, HttpException, HttpStatus} from '@nestjs/common';
+import { 
+  Controller,
+  Get,
+  Put,
+  Delete,
+  Param,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/users.create.dto';
 import { UpdateUserDto } from './dto/users.update.dto';
-import { IBaseResponse } from '../../helper/response.helper';
-import * as bcrypt from 'bcrypt'
+import { BaseResponse } from '../../helper/response.helper';
+import * as bcrypt from 'bcrypt';
+import { RolesService } from '../roles/roles.service';
 @Controller('users')
 export class UsersController {
-  constructor(protected readonly usersService: UsersService) {}
+  constructor(
+    protected readonly usersService: UsersService,
+    protected readonly rolesService: RolesService,
+    protected readonly baseResponse: BaseResponse,
+  ) {}
 
   @Get()
       async getAll() {
         try {
-          const response = IBaseResponse(0, "successfully!", await this.usersService.index());
+          const response = this.baseResponse.IBaseResponse(0, "successfully!", await this.usersService.index());
           return response;
         }catch (error) {
           throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -21,11 +36,21 @@ export class UsersController {
   @Get(':id')
     async getOne(@Param('id') id: number) {
       try {
-        const response = IBaseResponse(0, "successfully!", await this.usersService.findById(id));
+        const response = this.baseResponse.IBaseResponse(0, "successfully!", await this.usersService.findById(id));
         return response;
       }catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
       }
+    }
+
+  @Get('/roles') 
+    async getRoleAll() {
+        try {
+            const response = this.baseResponse.IBaseResponse(1, "success!", await this.usersService.getRoleAll());
+            return response;
+        } catch (error) {
+            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
   @Post()
@@ -33,12 +58,12 @@ export class UsersController {
       try {
         const user = await this.usersService.findByEmail(createUserDto.email);
         if (user) {
-          const response =  IBaseResponse(1, "Email already exists!", [])
+          const response =  this.baseResponse.IBaseResponse(1, "Email already exists!", [])
           return response;
         }
         createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
         // const isPasswordMatching = await bcrypt.compare(passwordInPlaintext, hashedPassword);
-        const response = IBaseResponse(0, "Create Successfully!", this.usersService.store(createUserDto));
+        const response = this.baseResponse.IBaseResponse(0, "Create Successfully!", this.usersService.store(createUserDto));
         return response;
       } catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -50,17 +75,17 @@ export class UsersController {
       try {
         const user = await this.usersService.findById(id);
         if(!user) {
-          const response =  IBaseResponse(0, "Role does not exist!", [])
+          const response =  this.baseResponse.IBaseResponse(0, "Role does not exist!", [])
               return response;
         }
         if(request.email){
           const user = await this.usersService.findByEmail(request.email);
           if (user) {
-              const response =  IBaseResponse(0, "Email already exists!", [])
+              const response =  this.baseResponse.IBaseResponse(0, "Email already exists!", [])
               return response;
           }
         }
-        const response = IBaseResponse(1, "Update Successful!", this.usersService.update(id, request));
+        const response = this.baseResponse.IBaseResponse(1, "Update Successful!", this.usersService.update(id, request));
         return response;
       } catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,10 +97,10 @@ export class UsersController {
       try {
         const user = await this.usersService.findById(id);
         if (!user) {
-          const response =  IBaseResponse(1, "Account does not exist!", []);
+          const response =  this.baseResponse.IBaseResponse(1, "Account does not exist!", []);
           return response;
         }
-        const response = IBaseResponse(0, "Account deleted successfully!", this.usersService.delete(id));
+        const response = this.baseResponse.IBaseResponse(0, "Account deleted successfully!", this.usersService.delete(id));
         return response;
       }catch (error) {
         throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -7,7 +7,13 @@ export class UsersService extends BaseService<Users, UserRepository> {
     constructor( protected readonly repository: UserRepository) {
         super()
     }
+
     async findByEmail(emails: string): Promise<Users>{
         return await this.repository.findOne({ email: emails });
     }
+
+    async getRoleAll() {
+        return await this.repository.getRoleAll();
+    }
+
 }
