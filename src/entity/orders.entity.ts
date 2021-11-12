@@ -18,7 +18,7 @@ export class Orders {
     
     @Column({
         type: 'int',
-    }) 
+    })
     user_id: number;
 
     @Column({

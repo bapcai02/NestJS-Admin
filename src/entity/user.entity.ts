@@ -4,10 +4,7 @@ import {
     PrimaryGeneratedColumn, 
     CreateDateColumn, 
     UpdateDateColumn,
-    OneToMany,
 } from "typeorm";
-import { Roles } from "./role.entity";
-
 @Entity()
 export class Users {
     @PrimaryGeneratedColumn() 

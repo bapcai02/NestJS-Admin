@@ -108,11 +108,4 @@ export class UsersController {
       }
     }
 }
-function PATH_METADATA(PATH_METADATA: any, StaticController: any) {
-  throw new Error('Function not implemented.');
-}
-
-function StaticController(PATH_METADATA: (PATH_METADATA: any, StaticController: any) => void, StaticController: any) {
-  throw new Error('Function not implemented.');
-}
 
