@@ -9,6 +9,7 @@ import { SlidersModule } from './app/sliders/sliders.module';
 import { SellersModule } from './app/sellers/sellers.module';
 import { RolesModule } from './app/roles/roles.module';
 import { RatingsModule } from './app/ratings/ratings.module';
+import { ProductsModule } from './app/products/products.module';
 import { ProductTagsModule } from './app/product-tags/product-tags.module';
 import { ProductImagesModule } from './app/product-images/product-images.module';
 import { OrdersModule } from './app/orders/orders.module';
@@ -22,10 +23,10 @@ import { BrandsModule } from './app/brands/brands.module';
 import { QuanhuyenModule } from './app/quanhuyen/quanhuyen.module';
 import { TinhtpModule } from './app/tinhtp/tinhtp.module';
 import { XaphuongttrModule } from './app/xaphuongttr/xaphuongttr.module';
-import { ProductsService } from './app/products/products.service';
-import { ProductsController } from './app/products/products.controller';
 import { Users } from './entity/user.entity';
 import { Roles } from './entity/role.entity';
+import { Products } from './entity/products.entity';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -35,7 +36,7 @@ import { Roles } from './entity/role.entity';
       username: 'mysql',
       password: 'mysql',
       database: 'shopb2c',
-      entities: [Users, Roles],
+      entities: [Users, Roles, Products],
       synchronize: false,
       logging: true,
       keepConnectionAlive: true,
@@ -47,6 +48,7 @@ import { Roles } from './entity/role.entity';
     SellersModule,
     RolesModule,
     RatingsModule,
+    ProductsModule,
     ProductTagsModule,
     ProductImagesModule,
     OrdersModule,
@@ -61,7 +63,7 @@ import { Roles } from './entity/role.entity';
     TinhtpModule,
     XaphuongttrModule,
   ],
-  controllers: [AppController, ProductsController],
-  providers: [AppService, ProductsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
