@@ -26,6 +26,10 @@ import { XaphuongttrModule } from './app/xaphuongttr/xaphuongttr.module';
 import { Users } from './entity/user.entity';
 import { Roles } from './entity/role.entity';
 import { Products } from './entity/products.entity';
+import { ProductImages } from './entity/productImages.entity';
+import { Brands } from './entity/brand.entity';
+import { Categories } from './entity/category.entity';
+import { Sellers } from './entity/seller.entity';
 
 @Module({
   imports: [
@@ -36,7 +40,15 @@ import { Products } from './entity/products.entity';
       username: 'mysql',
       password: 'mysql',
       database: 'shopb2c',
-      entities: [Users, Roles, Products],
+      entities: [
+        Users, 
+        Roles, 
+        Products,
+        ProductImages, 
+        Brands, 
+        Categories, 
+        Sellers
+      ],
       synchronize: false,
       logging: true,
       keepConnectionAlive: true,

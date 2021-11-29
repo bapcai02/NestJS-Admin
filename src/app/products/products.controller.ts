@@ -17,12 +17,17 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { BaseResponse } from '../../helper/response.helper';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/product.create.dto';
-import { editFileName, imageFileFilter } from "../storage.config"
+import { editFileName, imageFileFilter } from "../storage.config";
+import { BrandsService } from '../brands/brands.service';
+import { CategoriesService } from '../categories/categories.service';
+
 @Controller('api/products')
 export class ProductsController {
     constructor(
         protected readonly baseResponse: BaseResponse,
-        protected readonly productsService: ProductsService
+        protected readonly productsService: ProductsService,
+        protected readonly brandsService: BrandsService,
+        protected readonly categoriesService: CategoriesService,
     ) {}
 
     @Get()
@@ -57,11 +62,13 @@ export class ProductsController {
         )
         async create(@Body() data: any, @UploadedFile() file) {
             try {
-                const response = {
-                    originalname: file.originalname,
-                    filename: file.filename,
-                };
-                return response;
+                // const response = {
+                //     originalname: file.originalname,
+                //     filename: file.filename,
+                // };
+                const brand = await this.brandsService.findById(data.brand_id);
+                const category = await this.categoriesService.findById(data.category_id);
+                return {brand, category};
             } catch (error) {
                 throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)
             }
