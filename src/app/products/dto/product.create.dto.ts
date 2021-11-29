@@ -46,7 +46,4 @@ export class CreateProductDto {
 
     @IsNotEmpty()
     product_status: number;
-
-    @IsNotEmpty()
-    image: any;
 }

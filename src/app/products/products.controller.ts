@@ -20,7 +20,7 @@ import { CreateProductDto } from './dto/product.create.dto';
 import { editFileName, imageFileFilter } from "../storage.config";
 import { BrandsService } from '../brands/brands.service';
 import { CategoriesService } from '../categories/categories.service';
-
+import { ProductImagesService } from '../product-images/product-images.service';
 @Controller('api/products')
 export class ProductsController {
     constructor(
@@ -28,6 +28,7 @@ export class ProductsController {
         protected readonly productsService: ProductsService,
         protected readonly brandsService: BrandsService,
         protected readonly categoriesService: CategoriesService,
+        protected readonly productImagesService: ProductImagesService,
     ) {}
 
     @Get()
@@ -60,15 +61,34 @@ export class ProductsController {
                 fileFilter: imageFileFilter,
               }),
         )
-        async create(@Body() data: any, @UploadedFile() file) {
+        async create(@Body() data: CreateProductDto, @UploadedFile() file) {
             try {
-                // const response = {
-                //     originalname: file.originalname,
-                //     filename: file.filename,
-                // };
+                const image = {
+                    originalname: file.originalname,
+                    filename: file.filename,
+                };
                 const brand = await this.brandsService.findById(data.brand_id);
                 const category = await this.categoriesService.findById(data.category_id);
-                return {brand, category};
+
+                if(!brand) {
+                    return this.baseResponse.IBaseResponse(1, "brand does not exist !", []);
+                }else if(!category) {
+                    return this.baseResponse.IBaseResponse(1, "category do not exist !", []);
+                }
+
+                const product = await this.productsService.store(data);
+
+                if(!product) {
+                    return this.baseResponse.IBaseResponse(1, "error, please check again!", []);
+                }
+
+                await this.productImagesService.store({
+                    "product_id" : product.id,
+                    'image' : image.filename
+                })
+
+                return this.baseResponse.IBaseResponse(0, "successfully!", []);
+
             } catch (error) {
                 throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)
             }
