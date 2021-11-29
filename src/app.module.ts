@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ScheduleModule } from '@nestjs/schedule';
 import { UsersModule } from './app/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagsModule } from './app/tags/tags.module';
@@ -30,9 +31,11 @@ import { ProductImages } from './entity/productImages.entity';
 import { Brands } from './entity/brand.entity';
 import { Categories } from './entity/category.entity';
 import { Sellers } from './entity/seller.entity';
+import { CronService } from './cron/cron.service';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -76,6 +79,6 @@ import { Sellers } from './entity/seller.entity';
     XaphuongttrModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CronService],
 })
 export class AppModule {}
