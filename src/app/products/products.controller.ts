@@ -10,7 +10,7 @@ import {
     HttpStatus,
     Req,
     UseInterceptors,
-    UploadedFile
+    UploadedFile,
 } from '@nestjs/common';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -90,7 +90,48 @@ export class ProductsController {
                 return this.baseResponse.IBaseResponse(0, "successfully!", []);
 
             } catch (error) {
-                throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)
+                throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+    @Put(':id')
+        async update(@Param('id') id: number, @Body() data: any) {
+            try {
+                const product = await this.productsService.findById(id);
+                if(!product) {
+                    return this.baseResponse.IBaseResponse(1, "product data not exist !", []);
+                }
+                const brand = await this.brandsService.findById(data.brand_id);
+                const category = await this.categoriesService.findById(data.category_id);
+
+                if(!brand) {
+                    return this.baseResponse.IBaseResponse(1, "brand does not exist !", []);
+                }else if(!category) {
+                    return this.baseResponse.IBaseResponse(1, "category do not exist !", []);
+                }
+
+                await this.productsService.update(id, data);
+
+                return this.baseResponse.IBaseResponse(0, "successfully!", []);
+                
+            } catch (error) {
+                throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+    @Delete(':id')
+        async delete(@Param('id') id: number) {
+            try {
+                const product = await this.productsService.findById(id);
+                if(!product) {
+                    return this.baseResponse.IBaseResponse(1, "product data not exist !", []);
+                }
+
+                await this.productsService.delete(id);
+                return this.baseResponse.IBaseResponse(0, "successfully!", []);
+                
+            } catch (error) {
+                throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 }

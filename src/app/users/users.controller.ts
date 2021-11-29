@@ -76,8 +76,8 @@ export class UsersController {
       try {
         const user = await this.usersService.findById(id);
         if(!user) {
-          const response =  this.baseResponse.IBaseResponse(0, "Role does not exist!", [])
-              return response;
+            const response =  this.baseResponse.IBaseResponse(0, "Role does not exist!", [])
+            return response;
         }
         if(request.email){
           const user = await this.usersService.findByEmail(request.email);
