@@ -32,6 +32,8 @@ import { Brands } from './entity/brand.entity';
 import { Categories } from './entity/category.entity';
 import { Sellers } from './entity/seller.entity';
 import { CronService } from './cron/cron.service';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
@@ -55,6 +57,19 @@ import { CronService } from './cron/cron.service';
       synchronize: false,
       logging: true,
       keepConnectionAlive: true,
+    }),
+    MailerModule.forRoot({
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      defaults: {
+        from: '"nest-modules" <modules@nestjs.com>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
     }),
     UsersModule,
     TagsModule,
